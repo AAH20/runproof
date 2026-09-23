@@ -19,7 +19,7 @@ open generated/index.html  # macOS; or open the file in any browser
 PYTHONPATH=src python3 -m unittest discover -s tests -v
 ```
 
-`generated/passport.json` is the machine-readable artifact. `generated/index.html` is an offline page with model, hardware and status filters. The checked-in [demonstration passport](site/index.html) contains only the synthetic fixture.
+`generated/passport.json` is the machine-readable artifact. `generated/index.html` is an offline page with model, hardware and status filters. The checked-in [demonstration passport](site/index.html) contains only the synthetic fixture and is published at [aah20.github.io/runproof](https://aah20.github.io/runproof/) when GitHub Pages is enabled.
 
 ## What it decides today
 

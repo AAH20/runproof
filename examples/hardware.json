@@ -1,0 +1,4 @@
+[
+  {"id": "synthetic/24gb-gpu", "usable_memory_gb": 21, "hourly_usd": 1.5, "evidence": "illustrative"},
+  {"id": "synthetic/80gb-gpu", "usable_memory_gb": 74, "hourly_usd": 4.0, "evidence": "illustrative"}
+]

@@ -1,0 +1,197 @@
+{
+  "authority": "ADVISORY_ONLY_NOT_AUTHORIZED",
+  "candidate_count": 6,
+  "candidates": [
+    {
+      "available_memory_gb": 74,
+      "benchmark_count": 0,
+      "benchmark_digest": null,
+      "cost_per_successful_request_usd": null,
+      "evidence": "estimate_only",
+      "fit": true,
+      "hardware": "synthetic/80gb-gpu",
+      "hardware_evidence": "illustrative",
+      "memory": {
+        "kv_budget_gb": 11.796,
+        "runtime_overhead_gb": 3,
+        "total_gb": 32.396,
+        "weights_gb": 17.6
+      },
+      "model": "synthetic/32b-instruct-q4",
+      "quality": {
+        "evidence": "illustrative",
+        "score": 0.86,
+        "source": "synthetic fixture",
+        "task": "enterprise-answering"
+      },
+      "quantization": "q4",
+      "reasons": [],
+      "revision": "fixture-001",
+      "status": "ESTIMATED_FIT_NEEDS_MEASUREMENT"
+    },
+    {
+      "available_memory_gb": 74,
+      "benchmark_count": 0,
+      "benchmark_digest": null,
+      "cost_per_successful_request_usd": null,
+      "evidence": "estimate_only",
+      "fit": true,
+      "hardware": "synthetic/80gb-gpu",
+      "hardware_evidence": "illustrative",
+      "memory": {
+        "kv_budget_gb": 4.588,
+        "runtime_overhead_gb": 2,
+        "total_gb": 22.588,
+        "weights_gb": 16
+      },
+      "model": "synthetic/8b-instruct-fp16",
+      "quality": {
+        "evidence": "illustrative",
+        "score": 0.8,
+        "source": "synthetic fixture",
+        "task": "enterprise-answering"
+      },
+      "quantization": "fp16",
+      "reasons": [],
+      "revision": "fixture-001",
+      "status": "ESTIMATED_FIT_NEEDS_MEASUREMENT"
+    },
+    {
+      "available_memory_gb": 21,
+      "benchmark_count": 0,
+      "benchmark_digest": null,
+      "cost_per_successful_request_usd": null,
+      "evidence": "estimate_only",
+      "fit": true,
+      "hardware": "synthetic/24gb-gpu",
+      "hardware_evidence": "illustrative",
+      "memory": {
+        "kv_budget_gb": 4.588,
+        "runtime_overhead_gb": 2,
+        "total_gb": 10.988,
+        "weights_gb": 4.4
+      },
+      "model": "synthetic/8b-instruct-q4",
+      "quality": {
+        "evidence": "illustrative",
+        "score": 0.78,
+        "source": "synthetic fixture",
+        "task": "enterprise-answering"
+      },
+      "quantization": "q4",
+      "reasons": [],
+      "revision": "fixture-001",
+      "status": "ESTIMATED_FIT_NEEDS_MEASUREMENT"
+    },
+    {
+      "available_memory_gb": 74,
+      "benchmark_count": 0,
+      "benchmark_digest": null,
+      "cost_per_successful_request_usd": null,
+      "evidence": "estimate_only",
+      "fit": true,
+      "hardware": "synthetic/80gb-gpu",
+      "hardware_evidence": "illustrative",
+      "memory": {
+        "kv_budget_gb": 4.588,
+        "runtime_overhead_gb": 2,
+        "total_gb": 10.988,
+        "weights_gb": 4.4
+      },
+      "model": "synthetic/8b-instruct-q4",
+      "quality": {
+        "evidence": "illustrative",
+        "score": 0.78,
+        "source": "synthetic fixture",
+        "task": "enterprise-answering"
+      },
+      "quantization": "q4",
+      "reasons": [],
+      "revision": "fixture-001",
+      "status": "ESTIMATED_FIT_NEEDS_MEASUREMENT"
+    },
+    {
+      "available_memory_gb": 21,
+      "benchmark_count": 0,
+      "benchmark_digest": null,
+      "cost_per_successful_request_usd": null,
+      "evidence": "estimate_only",
+      "fit": false,
+      "hardware": "synthetic/24gb-gpu",
+      "hardware_evidence": "illustrative",
+      "memory": {
+        "kv_budget_gb": 11.796,
+        "runtime_overhead_gb": 3,
+        "total_gb": 32.396,
+        "weights_gb": 17.6
+      },
+      "model": "synthetic/32b-instruct-q4",
+      "quality": {
+        "evidence": "illustrative",
+        "score": 0.86,
+        "source": "synthetic fixture",
+        "task": "enterprise-answering"
+      },
+      "quantization": "q4",
+      "reasons": [
+        "estimated memory exceeds declared usable memory"
+      ],
+      "revision": "fixture-001",
+      "status": "DOES_NOT_FIT_ESTIMATE"
+    },
+    {
+      "available_memory_gb": 21,
+      "benchmark_count": 0,
+      "benchmark_digest": null,
+      "cost_per_successful_request_usd": null,
+      "evidence": "estimate_only",
+      "fit": false,
+      "hardware": "synthetic/24gb-gpu",
+      "hardware_evidence": "illustrative",
+      "memory": {
+        "kv_budget_gb": 4.588,
+        "runtime_overhead_gb": 2,
+        "total_gb": 22.588,
+        "weights_gb": 16
+      },
+      "model": "synthetic/8b-instruct-fp16",
+      "quality": {
+        "evidence": "illustrative",
+        "score": 0.8,
+        "source": "synthetic fixture",
+        "task": "enterprise-answering"
+      },
+      "quantization": "fp16",
+      "reasons": [
+        "estimated memory exceeds declared usable memory"
+      ],
+      "revision": "fixture-001",
+      "status": "DOES_NOT_FIT_ESTIMATE"
+    }
+  ],
+  "claim_boundary": "No bundled hardware measurements or verified quality claims",
+  "definitions": {
+    "estimated": "formula-based fit with user-supplied assumptions; no runtime SLO prediction",
+    "measured": "author-supplied receipt with intact content digest; not independent attestation",
+    "verified": "reserved for independent replay or signed attestation; not implemented"
+  },
+  "engine_version": "runproof-v0.1",
+  "input_digest": "d538abe1540c9b7aef74506ef70d9dbb7db3b4b2502c66591445ea15c94c39c3",
+  "passport_digest": "18ca819f5b9d9fe5c5829a138a4b95a34cc5256c04285646cbb6160904a913e1",
+  "schema_version": "0.1.0",
+  "workload": {
+    "cache_state": "cold",
+    "concurrent_sessions": 8,
+    "context_tokens": 8192,
+    "dataset_hash": "sha256:synthetic-workload-only",
+    "input_tokens": 2048,
+    "max_itl_p99_ms": 50,
+    "max_ttft_p99_ms": 500,
+    "min_quality": 0.75,
+    "min_success_rate": 0.99,
+    "monthly_requests": 100000,
+    "name": "Enterprise answering pilot \u2014 synthetic",
+    "output_tokens": 256,
+    "task": "enterprise-answering"
+  }
+}

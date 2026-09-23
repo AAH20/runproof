@@ -1,0 +1,15 @@
+{
+  "name": "Enterprise answering pilot — synthetic",
+  "task": "enterprise-answering",
+  "context_tokens": 8192,
+  "concurrent_sessions": 8,
+  "input_tokens": 2048,
+  "output_tokens": 256,
+  "cache_state": "cold",
+  "dataset_hash": "sha256:synthetic-workload-only",
+  "min_quality": 0.75,
+  "min_success_rate": 0.99,
+  "max_ttft_p99_ms": 500,
+  "max_itl_p99_ms": 50,
+  "monthly_requests": 100000
+}

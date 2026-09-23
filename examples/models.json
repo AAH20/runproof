@@ -1,0 +1,20 @@
+[
+  {
+    "id": "synthetic/8b-instruct-q4", "revision": "fixture-001", "quantization": "q4",
+    "parameters_b": 8, "bytes_per_parameter": 0.55,
+    "kv_gb_per_1k_tokens": 0.07, "runtime_overhead_gb": 2,
+    "quality": {"task": "enterprise-answering", "score": 0.78, "evidence": "illustrative", "source": "synthetic fixture"}
+  },
+  {
+    "id": "synthetic/8b-instruct-fp16", "revision": "fixture-001", "quantization": "fp16",
+    "parameters_b": 8, "bytes_per_parameter": 2,
+    "kv_gb_per_1k_tokens": 0.07, "runtime_overhead_gb": 2,
+    "quality": {"task": "enterprise-answering", "score": 0.80, "evidence": "illustrative", "source": "synthetic fixture"}
+  },
+  {
+    "id": "synthetic/32b-instruct-q4", "revision": "fixture-001", "quantization": "q4",
+    "parameters_b": 32, "bytes_per_parameter": 0.55,
+    "kv_gb_per_1k_tokens": 0.18, "runtime_overhead_gb": 3,
+    "quality": {"task": "enterprise-answering", "score": 0.86, "evidence": "illustrative", "source": "synthetic fixture"}
+  }
+]

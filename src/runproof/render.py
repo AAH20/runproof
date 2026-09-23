@@ -1,0 +1,43 @@
+"""Dependency-free, offline-capable deployment passport page."""
+
+from __future__ import annotations
+
+import html
+import json
+
+
+def render(passport: dict) -> str:
+    payload = json.dumps(passport, ensure_ascii=False).replace("<", "\\u003c")
+    work = passport["workload"]
+    title = html.escape(work.get("name", "AI deployment"))
+    return f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Inspectable AI model deployment passport: model fit, benchmark evidence, and SLO gates.">
+<title>{title} · RunProof</title>
+<style>
+:root{{--ink:#122038;--muted:#52637b;--paper:#f6f8fc;--white:#fff;--blue:#1765d1;--line:#dce4ee;--good:#077a58;--warn:#a56000;--bad:#b33b49}}
+*{{box-sizing:border-box}}body{{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}}
+header{{background:linear-gradient(115deg,#0b1b39,#123873 70%,#166aba);color:#fff;padding:52px max(24px,calc((100vw - 1120px)/2)) 58px}}
+.eyebrow{{text-transform:uppercase;letter-spacing:.14em;font-size:12px;font-weight:800;color:#a8d4ff}}h1{{font-size:clamp(32px,5vw,58px);line-height:1.08;margin:12px 0}}header p{{max-width:740px;color:#d7e6fa;margin:0}}
+main{{max-width:1120px;margin:-28px auto 70px;padding:0 24px}}.panel{{background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 32px #1431570d;padding:22px;margin-bottom:20px}}
+.stats{{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}}.stat{{background:#f1f6fc;border-radius:12px;padding:14px}}.stat strong{{display:block;font-size:22px}}.stat span{{font-size:12px;color:var(--muted)}}
+h2{{font-size:21px;margin:4px 0 14px}}.controls{{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 16px}}label{{font-size:13px;font-weight:700;color:var(--muted)}}select{{display:block;min-width:180px;padding:9px;border-radius:8px;border:1px solid #b9c7d8;background:#fff;color:var(--ink);font:inherit}}
+.cards{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}}.card{{border:1px solid var(--line);border-radius:12px;padding:18px;background:#fff}}.card h3{{margin:0 0 4px;font-size:18px;overflow-wrap:anywhere}}.sub{{color:var(--muted);font-size:13px;margin-bottom:12px}}.pill{{display:inline-block;border-radius:999px;padding:4px 9px;font-size:11px;font-weight:800;letter-spacing:.02em;background:#e7efff;color:#1555a5}}.pill.good{{background:#dcf6ec;color:var(--good)}}.pill.bad{{background:#fde9ec;color:var(--bad)}}.pill.warn{{background:#fff0d5;color:var(--warn)}}
+.grid{{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px;font-size:13px}}.grid div{{background:#f6f8fb;border-radius:7px;padding:9px}}.grid b{{display:block}}.note{{color:var(--muted);font-size:13px}}code{{overflow-wrap:anywhere}}footer{{color:var(--muted);font-size:13px;padding:0 24px 35px;text-align:center}}a{{color:var(--blue)}}@media(max-width:720px){{.stats,.cards{{grid-template-columns:1fr 1fr}}}}@media(max-width:520px){{.stats,.cards,.grid{{grid-template-columns:1fr}}}}
+</style></head><body>
+<header><div class="eyebrow">RunProof · deployment passport</div><h1>{title}</h1><p>Compare what might fit with what has actually been measured. Every estimate and result carries its evidence label; this page is advisory only.</p></header>
+<main><section class="panel"><div class="stats" id="stats"></div></section>
+<section class="panel"><h2>Deployment candidates</h2><div class="controls"><label>Model<select id="model-filter"><option value="">All models</option></select></label><label>Hardware<select id="hardware-filter"><option value="">All hardware</option></select></label><label>Status<select id="status-filter"><option value="">All statuses</option></select></label></div><div class="cards" id="cards"></div></section>
+<section class="panel"><h2>How to read this passport</h2><p class="note">Memory estimates assume every declared concurrent session reaches the full context budget. They do not predict latency or quality. A self-reported measured result with an intact SHA-256 digest is still not an independent verification. Only exact model revision, hardware, workload and cache matches are considered comparable.</p><p class="note">Passport digest: <code id="digest"></code></p><p class="note">RunProof is an OSS reference; no production authorization or deployment action is implied.</p></section></main>
+<footer>Generated offline by RunProof · <a href="https://github.com/AAH20/runproof">Source and reproducibility</a></footer>
+<script type="application/json" id="passport-data">{payload}</script>
+<script>
+const data=JSON.parse(document.getElementById('passport-data').textContent);
+const $=id=>document.getElementById(id); const unique=a=>[...new Set(a)].sort();
+const candidates=data.candidates;
+for(const [id,key] of [['model-filter','model'],['hardware-filter','hardware'],['status-filter','status']]){{for(const value of unique(candidates.map(x=>x[key]))){{const o=document.createElement('option');o.value=value;o.textContent=value;$(id).appendChild(o)}}}}
+function el(tag,cls,text){{const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=String(text);return x}}
+function draw(){{const rows=candidates.filter(x=>(!$('model-filter').value||x.model===$('model-filter').value)&&(!$('hardware-filter').value||x.hardware===$('hardware-filter').value)&&(!$('status-filter').value||x.status===$('status-filter').value));const root=$('cards');root.replaceChildren();for(const c of rows){{const card=el('article','card');card.append(el('h3','',c.model),el('div','sub',c.hardware+' · '+c.quantization+' · revision '+c.revision));const kind=c.status.includes('PASS')?'good':c.status.includes('FAIL')||c.status.includes('NOT_FIT')||c.status.includes('DOES_NOT')?'bad':'warn';card.append(el('span','pill '+kind,c.status));const grid=el('div','grid');for(const [label,value] of [['Memory required',c.memory.total_gb+' GB'],['Usable memory',c.available_memory_gb+' GB'],['Evidence',c.evidence],['Cost / successful request',c.cost_per_successful_request_usd===null?'Not measured':'$'+c.cost_per_successful_request_usd]]){{const box=el('div');box.append(el('b','',label),el('span','',value));grid.append(box)}}card.append(grid);if(c.reasons.length)card.append(el('p','note',c.reasons.join('; ')));root.append(card)}}if(!rows.length)root.append(el('p','note','No candidates match these filters.'))}}
+for(const id of ['model-filter','hardware-filter','status-filter'])$(id).addEventListener('change',draw);
+const stats=[['Candidates',data.candidate_count],['Estimated fits',candidates.filter(x=>x.fit).length],['Measured serving passes',candidates.filter(x=>x.status.includes('MEASURED_PASS')||x.status.includes('MEASURED_SERVING_PASS')).length],['Independent verification','Not implemented']];for(const [label,value] of stats){{const box=el('div','stat');box.append(el('strong','',value),el('span','',label));$('stats').append(box)}}$('digest').textContent=data.passport_digest;draw();
+</script></body></html>'''
